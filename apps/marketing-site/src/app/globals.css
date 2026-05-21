@@ -1,26 +1,210 @@
 @import "tailwindcss";
 
+/* Brand Color System & Neutral Scale */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-navy: #1a2e4a;
+  --color-ivory: #f5f1eb;
+  --color-slate-blue: #4a5f8f;
+  --color-gold: #d4a574;
+  --color-sage: #7a9d8a;
+
+  /* Neutral Scale */
+  --color-neutral-50: #f9f7f5;
+  --color-neutral-100: #f3ede7;
+  --color-neutral-200: #e8dfd7;
+  --color-neutral-300: #d9cfc4;
+  --color-neutral-400: #c5b8ac;
+  --color-neutral-500: #a89989;
+  --color-neutral-600: #8b776b;
+  --color-neutral-700: #6d5d52;
+  --color-neutral-800: #4f4540;
+  --color-neutral-900: #3a302d;
+
+  /* Font Family Variables */
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Day Theme CSS Vars */
+  --bg-primary: var(--color-ivory);
+  --text-primary: var(--color-navy);
+  --text-secondary: var(--color-slate-blue);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(212, 165, 116, 0.2);
+  --accent-primary: var(--color-gold);
+  --accent-secondary: var(--color-sage);
+  --border-color: var(--color-neutral-200);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Night Theme Overrides */
+:root[data-theme="night"] {
+  --bg-primary: var(--color-navy);
+  --text-primary: var(--color-ivory);
+  --text-secondary: #d4c5b9;
+  --glass-bg: rgba(26, 46, 74, 0.6);
+  --glass-border: rgba(212, 165, 116, 0.15);
+  --accent-primary: var(--color-gold);
+  --accent-secondary: var(--color-sage);
+  --border-color: var(--color-neutral-700);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --color-primary: var(--color-navy);
+  --color-secondary: var(--color-slate-blue);
+  --color-accent: var(--color-gold);
+  --color-accent-light: var(--color-sage);
+  --color-navy: var(--color-navy);
+  --color-ivory: var(--color-ivory);
+  --color-slate-blue: var(--color-slate-blue);
+  --color-gold: var(--color-gold);
+  --color-sage: var(--color-sage);
+  --color-neutral-50: var(--color-neutral-50);
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-200: var(--color-neutral-200);
+  --color-neutral-300: var(--color-neutral-300);
+  --color-neutral-400: var(--color-neutral-400);
+  --color-neutral-500: var(--color-neutral-500);
+  --color-neutral-600: var(--color-neutral-600);
+  --color-neutral-700: var(--color-neutral-700);
+  --color-neutral-800: var(--color-neutral-800);
+  --color-neutral-900: var(--color-neutral-900);
+}
+
+/* Glass Utility */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Custom Quill Cursor */
+.cursor-quill {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.cursor-quill.clicking {
+  transform: translate(-50%, -50%) rotate(-30deg) scale(0.9);
+  opacity: 1;
+}
+
+/* Gradient Mesh Background */
+.gradient-mesh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(212, 165, 116, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(122, 157, 138, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 40% 0%,
+      rgba(74, 95, 143, 0.05) 0%,
+      transparent 60%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+:root[data-theme="night"] .gradient-mesh {
+  background:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(212, 165, 116, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(122, 157, 138, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 40% 0%,
+      rgba(212, 165, 116, 0.04) 0%,
+      transparent 60%
+    );
+}
+
+/* Animations */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px) rotate(360deg);
+    opacity: 0;
   }
 }
 
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ink-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Global Body Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Touch Device Fallback */
+@media (hover: none) and (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+  .cursor-quill {
+    display: none;
+  }
 }
