@@ -1,0 +1,29 @@
+{
+  "name": "daracademy",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:marketing": "turbo run dev --filter=@daracademy/marketing-site",
+    "dev:student": "turbo run dev --filter=@daracademy/student-dashboard",
+    "dev:guardian": "turbo run dev --filter=@daracademy/guardian-dashboard",
+    "dev:admin": "turbo run dev --filter=@daracademy/admin-dashboard",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "db:generate": "turbo run db:generate --filter=@daracademy/database",
+    "db:migrate": "turbo run db:migrate --filter=@daracademy/database",
+    "db:studio": "pnpm --filter @daracademy/database studio",
+    "clean": "turbo run clean && rm -rf node_modules .turbo"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.0",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0",
+    "lefthook": "^2.1.8"
+  },
+  "engines": { "node": ">=22.0.0", "pnpm": ">=10.0.0" },
+  "packageManager": "pnpm@10.33.4"
+}

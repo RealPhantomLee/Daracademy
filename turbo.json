@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env"],
+  "globalEnv": [
+    "NODE_ENV", "NEXTAUTH_URL", "NEXTAUTH_SECRET", "DATABASE_URL", "DIRECT_URL",
+    "NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_POSTHOG_KEY", "NEXT_PUBLIC_POSTHOG_HOST",
+    "SENTRY_DSN", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET",
+    "RESEND_API_KEY", "R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID",
+    "R2_SECRET_ACCESS_KEY", "R2_BUCKET_NAME", "CALENDLY_WEBHOOK_SECRET"
+  ],
+  "tasks": {
+    "dev": { "cache": false, "persistent": true, "dependsOn": ["^build"] },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "inputs": ["src/**", "package.json", "next.config.*", "tailwind.config.*", "../../packages/*/src/**"]
+    },
+    "typecheck": { "dependsOn": ["^build"] },
+    "lint": { "dependsOn": ["^build"] },
+    "db:generate": { "cache": false },
+    "db:migrate": { "cache": false },
+    "clean": { "cache": false }
+  }
+}

@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    prettier:
+      glob: "*.{ts,tsx,js,jsx,json,md,css,yml}"
+      run: pnpm prettier --check {staged_files}
+    secret-scan:
+      run: |
+        if git diff --cached --no-color | grep -nE '(password|secret|api[_-]?key|token)\s*=\s*["'"'"'][^"'"'"']{8,}'; then
+          echo "Possible secret in staged diff."
+          exit 1
+        fi
+pre-push:
+  commands:
+    typecheck:
+      run: pnpm turbo run typecheck
