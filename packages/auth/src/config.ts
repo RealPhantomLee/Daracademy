@@ -1,21 +1,21 @@
-import type { NextAuthConfig } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import Discord from "next-auth/providers/discord";
 import bcryptjs from "bcryptjs";
 import { prisma } from "@daracademy/database";
+import type { NextAuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
     Discord({
-      clientId: process.env.DISCORD_CLIENT_ID,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      clientId: process.env.DISCORD_CLIENT_ID || "",
+      clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
     }),
     /**
      * Apple Sign-In Configuration
@@ -82,17 +82,17 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       if (user) {
         token.id = user.id;
-        token.role = user.role;
+        token.role = (user as any).role;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role;
+        (session.user as any).role = token.role;
       }
       return session;
     },
@@ -106,13 +106,16 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   events: {
-    async signIn({ user, isNewUser }) {
+    async signIn({ user, isNewUser }: any) {
       if (isNewUser) {
         // Initialize new user profile
-        if (user.role === "STUDENT" || user.role === "TUTOR") {
+        if (
+          (user as any).role === "STUDENT" ||
+          (user as any).role === "TUTOR"
+        ) {
           // Profile will be created on user setup flow
         }
       }
     },
   },
-} satisfies NextAuthConfig;
+};
