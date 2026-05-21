@@ -1,0 +1,31 @@
+{
+  "name": "@daracademy/config",
+  "version": "1.0.0",
+  "description": "Shared configuration for Daracademy — TypeScript, Tailwind CSS, and ESLint",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./typescript/base.json"
+    },
+    "./typescript/base": "./typescript/base.json",
+    "./typescript/nextjs": "./typescript/nextjs.json",
+    "./tailwind": {
+      "types": "./tailwind/index.d.ts",
+      "import": "./tailwind/index.ts"
+    },
+    "./eslint": "./eslint/index.js"
+  },
+  "files": [
+    "typescript",
+    "tailwind",
+    "eslint"
+  ],
+  "dependencies": {
+    "tailwindcss": "^3.4.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

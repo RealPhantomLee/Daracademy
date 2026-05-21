@@ -1,0 +1,33 @@
+{
+  "name": "@daracademy/analytics",
+  "version": "1.0.0",
+  "description": "PostHog analytics integration for Daracademy",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    },
+    "./provider": {
+      "import": "./src/PostHogProvider.tsx"
+    },
+    "./server": {
+      "import": "./src/server.ts"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "posthog-js": "^1.130.0",
+    "posthog-node": "^4.0.0",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

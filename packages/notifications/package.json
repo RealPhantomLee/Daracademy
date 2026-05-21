@@ -1,0 +1,40 @@
+{
+  "name": "@daracademy/notifications",
+  "version": "1.0.0",
+  "description": "Email, storage, and in-app notifications for Daracademy",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    },
+    "./email": {
+      "import": "./src/email/client.ts"
+    },
+    "./templates": {
+      "import": "./src/email/templates/index.ts"
+    },
+    "./r2": {
+      "import": "./src/storage/r2.ts"
+    },
+    "./notify": {
+      "import": "./src/in-app/notify.ts"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "preview-email": "email preview"
+  },
+  "dependencies": {
+    "@daracademy/database": "workspace:*",
+    "resend": "^3.0.0",
+    "react-email": "^6.0.0",
+    "@aws-sdk/client-s3": "^3.500.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "typescript": "^5.4.0"
+  }
+}

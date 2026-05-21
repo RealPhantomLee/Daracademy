@@ -1,0 +1,35 @@
+{
+  "name": "@daracademy/animations",
+  "version": "1.0.0",
+  "description": "Framer Motion animations and components for Daracademy",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    },
+    "./variants": {
+      "import": "./src/variants.ts"
+    },
+    "./scroll-reveal": {
+      "import": "./src/ScrollReveal.tsx"
+    },
+    "./page-transition": {
+      "import": "./src/PageTransition.tsx"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "framer-motion": "^10.16.0",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
