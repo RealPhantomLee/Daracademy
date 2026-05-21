@@ -4,6 +4,10 @@ export {
   type SessionReminderEmailProps,
 } from "./SessionReminderEmail";
 export {
+  SessionScheduledEmail,
+  type SessionScheduledEmailProps,
+} from "./SessionScheduledEmail";
+export {
   AssignmentDueEmail,
   type AssignmentDueEmailProps,
 } from "./AssignmentDueEmail";

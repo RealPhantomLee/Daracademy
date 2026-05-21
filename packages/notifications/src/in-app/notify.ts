@@ -20,7 +20,7 @@ export async function createNotification(
         type,
         title,
         message,
-        data: data ? JSON.stringify(data) : null,
+        data: (data as any) || undefined,
       },
     });
 

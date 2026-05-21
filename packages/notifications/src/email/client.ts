@@ -50,7 +50,7 @@ export async function sendEmail(
       subject,
       html,
       react: react as React.ReactElement,
-      replyTo,
+      reply_to: replyTo,
     });
 
     if (response.error) {

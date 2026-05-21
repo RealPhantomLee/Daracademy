@@ -2,9 +2,11 @@ export { sendEmail, type SendEmailOptions } from "./email/client";
 export {
   WelcomeEmail,
   SessionReminderEmail,
+  SessionScheduledEmail,
   AssignmentDueEmail,
   type WelcomeEmailProps,
   type SessionReminderEmailProps,
+  type SessionScheduledEmailProps,
   type AssignmentDueEmailProps,
 } from "./email/templates";
 export {
