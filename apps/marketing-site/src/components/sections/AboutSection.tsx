@@ -55,12 +55,12 @@ export const AboutSection = () => {
                   "0 20px 40px rgba(212, 165, 116, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <div className="w-full h-full bg-gradient-to-br from-color-slate-blue to-color-navy flex items-center justify-center">
-                <div className="text-center text-color-ivory">
-                  <p className="font-serif text-2xl mb-2">Dara Main Page</p>
-                  <p className="text-sm opacity-75">Image placeholder</p>
-                </div>
-              </div>
+              <Image
+                src="/images/Dara main page.png"
+                alt="Dara - Main Page"
+                fill
+                className="object-cover"
+              />
             </motion.div>
           </div>
         </ScrollReveal>
@@ -76,12 +76,12 @@ export const AboutSection = () => {
                   "0 20px 40px rgba(212, 165, 116, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <div className="w-full h-full bg-gradient-to-br from-color-gold/20 to-color-slate-blue/20 flex items-center justify-center">
-                <div className="text-center text-color-navy">
-                  <p className="font-serif text-2xl mb-2">Dara About Page</p>
-                  <p className="text-sm opacity-75">Image placeholder</p>
-                </div>
-              </div>
+              <Image
+                src="/images/Dara about page.png"
+                alt="Dara - About Page"
+                fill
+                className="object-cover"
+              />
             </motion.div>
             <motion.div
               variants={panelVariants}
@@ -117,10 +117,13 @@ export const AboutSection = () => {
                 whileHover={{ scale: 1.05 }}
                 className="glass rounded-2xl overflow-hidden p-6 h-full flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
-                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-color-slate-blue to-color-navy flex items-center justify-center">
-                  <div className="text-center text-color-ivory">
-                    <p className="font-serif text-lg">Photo 1</p>
-                  </div>
+                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden">
+                  <Image
+                    src="/images/Dara main page.png"
+                    alt="Student success story - Sarah"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
                   "Dara transformed my approach to learning. Her patience and
@@ -136,10 +139,13 @@ export const AboutSection = () => {
                 whileHover={{ scale: 1.05 }}
                 className="glass rounded-2xl overflow-hidden p-6 h-full flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
-                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-color-gold/30 to-color-slate-blue/30 flex items-center justify-center">
-                  <div className="text-center text-color-navy">
-                    <p className="font-serif text-lg">Photo 2</p>
-                  </div>
+                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden">
+                  <Image
+                    src="/images/Dara about page.png"
+                    alt="Student success story - Marcus"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
                   "I improved my SAT score by 200 points. The personalized
@@ -155,10 +161,13 @@ export const AboutSection = () => {
                 whileHover={{ scale: 1.05 }}
                 className="glass rounded-2xl overflow-hidden p-6 h-full flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
-                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-color-sage/30 to-color-navy/30 flex items-center justify-center">
-                  <div className="text-center text-color-navy">
-                    <p className="font-serif text-lg">Photo 3</p>
-                  </div>
+                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden">
+                  <Image
+                    src="/images/Dara about page 2.png"
+                    alt="Student success story - Jessica"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
                   "Finally, tutoring that feels like mentorship. Dara genuinely
@@ -174,10 +183,13 @@ export const AboutSection = () => {
                 whileHover={{ scale: 1.05 }}
                 className="glass rounded-2xl overflow-hidden p-6 h-full flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
-                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-color-slate-blue/20 to-color-gold/20 flex items-center justify-center">
-                  <div className="text-center text-color-navy">
-                    <p className="font-serif text-lg">Photo 4</p>
-                  </div>
+                <div className="relative h-48 md:h-56 mb-4 rounded-xl overflow-hidden">
+                  <Image
+                    src="/images/Dara inquire page.png"
+                    alt="Student success story - Alex"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
                   "Dara doesn't just teach—she empowers. I've gone from

@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { NoahWidget } from "@daracademy/noah-engine";
 
 /**
  * Hero Section
@@ -10,12 +11,7 @@ import { ChevronDown } from "lucide-react";
  * Features staggered headline animation and scroll indicator
  */
 export function HeroSection() {
-  const headlineWords = [
-    "Confidence",
-    "Begins",
-    "With",
-    "Understanding.",
-  ];
+  const headlineWords = ["Confidence", "Begins", "With", "Understanding."];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -106,32 +102,37 @@ export function HeroSection() {
           <motion.p
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.4 } },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, delay: 0.4 },
+              },
             }}
             className="text-lg md:text-xl text-color-slate-blue leading-relaxed max-w-md"
           >
-            Expert-led tutoring sessions designed to build confidence and mastery in every subject.
+            Expert-led tutoring sessions designed to build confidence and
+            mastery in every subject.
           </motion.p>
 
           {/* CTAs */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.5 } },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, delay: 0.5 },
+              },
             }}
             className="flex flex-col sm:flex-row gap-4 pt-4"
           >
             {/* Primary CTA */}
-            <button
-              className="px-8 py-3 md:py-4 bg-transparent border-2 border-color-gold text-color-gold font-semibold rounded-lg hover:bg-color-gold hover:text-color-navy transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-color-gold/30"
-            >
+            <button className="px-8 py-3 md:py-4 bg-transparent border-2 border-color-gold text-color-gold font-semibold rounded-lg hover:bg-color-gold hover:text-color-navy transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-color-gold/30">
               Book a Free Consultation
             </button>
 
             {/* Secondary CTA */}
-            <button
-              className="px-8 py-3 md:py-4 bg-color-navy text-color-ivory font-semibold rounded-lg hover:bg-color-slate-blue transition-all duration-300"
-            >
+            <button className="px-8 py-3 md:py-4 bg-color-navy text-color-ivory font-semibold rounded-lg hover:bg-color-slate-blue transition-all duration-300">
               Explore Daracademy
             </button>
           </motion.div>
@@ -144,17 +145,7 @@ export function HeroSection() {
           animate="visible"
           className="flex justify-center items-center"
         >
-          <div className="w-full max-w-sm h-[500px] flex items-center justify-center">
-            {/* Noah Placeholder - renders the actual Noah component */}
-            <div className="glass rounded-3xl p-8 w-full h-full flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-color-slate-blue font-serif text-2xl mb-4">Noah</p>
-                <p className="text-color-slate-blue text-sm">
-                  Your learning companion
-                </p>
-              </div>
-            </div>
-          </div>
+          <NoahWidget />
         </motion.div>
       </div>
 
