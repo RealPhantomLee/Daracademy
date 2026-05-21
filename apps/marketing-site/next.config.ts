@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const config: NextConfig = {
+  transpilePackages: [
+    '@daracademy/ui',
+    '@daracademy/animations',
+    '@daracademy/noah-engine',
+    '@daracademy/analytics',
+  ],
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
 };
 
-export default nextConfig;
+export default config;
