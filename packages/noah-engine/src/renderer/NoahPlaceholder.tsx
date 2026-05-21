@@ -33,14 +33,26 @@ const STATE_ANIMATIONS: Record<NoahState, any> = {
   },
 };
 
-const CatSVG: React.FC<{ className?: string }> = ({ className = "" }) => (
+const CatSVG: React.FC<{ className?: string; style?: React.CSSProperties }> = ({
+  className = "",
+  style,
+}) => (
   <svg
     viewBox="0 0 100 100"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    style={style}
   >
     {/* Body */}
-    <ellipse cx="50" cy="60" rx="28" ry="32" fill="white" stroke="#000" strokeWidth="2" />
+    <ellipse
+      cx="50"
+      cy="60"
+      rx="28"
+      ry="32"
+      fill="white"
+      stroke="#000"
+      strokeWidth="2"
+    />
 
     {/* Head */}
     <circle cx="50" cy="30" r="20" fill="white" stroke="#000" strokeWidth="2" />
@@ -71,8 +83,20 @@ const CatSVG: React.FC<{ className?: string }> = ({ className = "" }) => (
     <polygon points="50,32 48,35 52,35" fill="#ff69b4" />
 
     {/* Mouth */}
-    <path d="M 50 35 Q 46 38 42 36" stroke="#000" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-    <path d="M 50 35 Q 54 38 58 36" stroke="#000" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+    <path
+      d="M 50 35 Q 46 38 42 36"
+      stroke="#000"
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinecap="round"
+    />
+    <path
+      d="M 50 35 Q 54 38 58 36"
+      stroke="#000"
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinecap="round"
+    />
 
     {/* Tail */}
     <path
@@ -84,10 +108,26 @@ const CatSVG: React.FC<{ className?: string }> = ({ className = "" }) => (
     />
 
     {/* Front left paw */}
-    <ellipse cx="38" cy="88" rx="5" ry="8" fill="white" stroke="#000" strokeWidth="1.5" />
+    <ellipse
+      cx="38"
+      cy="88"
+      rx="5"
+      ry="8"
+      fill="white"
+      stroke="#000"
+      strokeWidth="1.5"
+    />
 
     {/* Front right paw */}
-    <ellipse cx="62" cy="88" rx="5" ry="8" fill="white" stroke="#000" strokeWidth="1.5" />
+    <ellipse
+      cx="62"
+      cy="88"
+      rx="5"
+      ry="8"
+      fill="white"
+      stroke="#000"
+      strokeWidth="1.5"
+    />
   </svg>
 );
 
@@ -103,12 +143,13 @@ export const NoahPlaceholder: React.FC<NoahPlaceholderProps> = ({
   return (
     <motion.div
       animate={STATE_ANIMATIONS[state]}
-      style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
-      <CatSVG
-        className="select-none"
-        style={{ width: size, height: size }}
-      />
+      <CatSVG className="select-none" style={{ width: size, height: size }} />
     </motion.div>
   );
 };
