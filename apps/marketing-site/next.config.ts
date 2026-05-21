@@ -8,9 +8,9 @@ const config: NextConfig = {
     "@daracademy/noah-engine",
     "@daracademy/analytics",
   ],
+  outputFileTracingRoot: path.join(__dirname, "../../"),
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
-    outputFileTracingRoot: path.join(__dirname, "../../"),
   },
 };
 
