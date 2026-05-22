@@ -1,15 +1,38 @@
 import React from "react";
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@daracademy/auth";
 import { prisma } from "@daracademy/database";
 import { Card, Button } from "@daracademy/ui";
 import { StudentCard } from "@/components/widgets/StudentCard";
 
+const ErrorState = ({
+  message,
+  action,
+}: {
+  message: string;
+  action?: () => void;
+}) => (
+  <div className="p-8 space-y-8">
+    <section className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <h3 className="text-sm font-medium text-yellow-800 mb-2">{message}</h3>
+      {action && (
+        <button
+          onClick={action}
+          className="text-sm text-blue-600 hover:underline"
+        >
+          Try again
+        </button>
+      )}
+    </section>
+  </div>
+);
+
 export default async function StudentsPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return <div>Not authenticated</div>;
+    return <ErrorState message="Please sign in to continue" />;
   }
 
   // Fetch guardian user
@@ -18,7 +41,7 @@ export default async function StudentsPage() {
   });
 
   if (!guardian) {
-    return <div>Guardian not found</div>;
+    return <ErrorState message="Guardian profile not found" />;
   }
 
   // Fetch all students linked to this guardian
@@ -69,14 +92,14 @@ export default async function StudentsPage() {
           <p className="text-slate-blue/60 mb-4">
             No students linked to your account yet.
           </p>
-          <Button
-            variant="primary"
-            size="sm"
-            className="mx-auto"
-            onClick={() => {}}
-          >
-            Link a Student
-          </Button>
+          <div className="mx-auto inline-block">
+            <Button variant="primary" size="sm" disabled>
+              Link a Student
+            </Button>
+          </div>
+          <p className="text-xs text-slate-blue/50 mt-4">
+            Student linking is coming soon
+          </p>
         </Card>
       )}
     </div>

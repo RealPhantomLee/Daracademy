@@ -61,12 +61,17 @@ export const StudentTable: React.FC<StudentTableProps> = ({
     <div className="space-y-4">
       {/* Search */}
       <div className="flex gap-4">
+        <label htmlFor="student-search" className="sr-only">
+          Search by name or email
+        </label>
         <input
+          id="student-search"
           type="text"
           placeholder="Search by name or email..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="flex-1 px-4 py-2 border border-slate-blue/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy"
+          className="flex-1 px-4 py-2 border border-slate-blue/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          aria-label="Search students by name or email"
         />
       </div>
 
@@ -78,7 +83,9 @@ export const StudentTable: React.FC<StudentTableProps> = ({
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("name")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by name"
+                  aria-pressed={sortField === "name"}
                 >
                   Name{" "}
                   {sortField === "name" && (sortOrder === "asc" ? "↑" : "↓")}
@@ -87,7 +94,9 @@ export const StudentTable: React.FC<StudentTableProps> = ({
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("email")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by email"
+                  aria-pressed={sortField === "email"}
                 >
                   Email{" "}
                   {sortField === "email" && (sortOrder === "asc" ? "↑" : "↓")}
@@ -156,7 +165,11 @@ export const StudentTable: React.FC<StudentTableProps> = ({
                   <td className="px-6 py-4">
                     <div className="flex gap-2">
                       <Link href={`/dashboard/students/${student.id}`}>
-                        <Button variant="outline" size="sm">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          aria-label={`View details for ${student.name}`}
+                        >
                           View
                         </Button>
                       </Link>
@@ -165,6 +178,7 @@ export const StudentTable: React.FC<StudentTableProps> = ({
                           variant="outline"
                           size="sm"
                           onClick={() => onDelete(student.id)}
+                          aria-label={`Delete student ${student.name}`}
                         >
                           Delete
                         </Button>

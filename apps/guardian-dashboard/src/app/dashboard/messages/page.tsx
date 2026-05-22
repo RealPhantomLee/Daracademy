@@ -4,11 +4,33 @@ import { authOptions } from "@daracademy/auth";
 import { prisma } from "@daracademy/database";
 import { Card, Button } from "@daracademy/ui";
 
+const ErrorState = ({
+  message,
+  action,
+}: {
+  message: string;
+  action?: () => void;
+}) => (
+  <div className="p-8 space-y-8">
+    <section className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <h3 className="text-sm font-medium text-yellow-800 mb-2">{message}</h3>
+      {action && (
+        <button
+          onClick={action}
+          className="text-sm text-blue-600 hover:underline"
+        >
+          Try again
+        </button>
+      )}
+    </section>
+  </div>
+);
+
 export default async function MessagesPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return <div>Not authenticated</div>;
+    return <ErrorState message="Please sign in to continue" />;
   }
 
   // Fetch guardian user
@@ -17,7 +39,7 @@ export default async function MessagesPage() {
   });
 
   if (!guardian) {
-    return <div>Guardian not found</div>;
+    return <ErrorState message="Guardian profile not found" />;
   }
 
   // Fetch received messages
@@ -133,7 +155,7 @@ export default async function MessagesPage() {
       <section>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-navy">Conversations</h2>
-          <Button variant="primary" size="sm" onClick={() => {}}>
+          <Button variant="primary" size="sm" disabled>
             New Message
           </Button>
         </div>
@@ -212,12 +234,7 @@ export default async function MessagesPage() {
               <p className="text-slate-blue/60 mb-4">
                 No messages yet. Start a conversation with a tutor.
               </p>
-              <Button
-                variant="primary"
-                size="sm"
-                className="mx-auto"
-                onClick={() => {}}
-              >
+              <Button variant="primary" size="sm" className="mx-auto" disabled>
                 Send First Message
               </Button>
             </div>

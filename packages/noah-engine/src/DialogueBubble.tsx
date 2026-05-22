@@ -1,5 +1,6 @@
 /**
  * Speech bubble component for Noah dialogue
+ * Memoized to prevent unnecessary re-renders
  */
 
 import React from "react";
@@ -11,7 +12,7 @@ interface DialogueBubbleProps {
   onDismiss: () => void;
 }
 
-export const DialogueBubble: React.FC<DialogueBubbleProps> = ({
+const DialogueBubbleContent: React.FC<DialogueBubbleProps> = ({
   message,
   visible,
   onDismiss,
@@ -69,3 +70,6 @@ export const DialogueBubble: React.FC<DialogueBubbleProps> = ({
     </AnimatePresence>
   );
 };
+
+export const DialogueBubble = React.memo(DialogueBubbleContent);
+DialogueBubble.displayName = "DialogueBubble";

@@ -63,7 +63,9 @@ export const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("name")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by title name"
+                  aria-pressed={sortField === "name"}
                 >
                   Name{" "}
                   {sortField === "name" && (sortOrder === "asc" ? "↑" : "↓")}
@@ -72,7 +74,9 @@ export const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("tier")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by tier"
+                  aria-pressed={sortField === "tier"}
                 >
                   Tier{" "}
                   {sortField === "tier" && (sortOrder === "asc" ? "↑" : "↓")}
@@ -126,7 +130,11 @@ export const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
                   <td className="px-6 py-4">
                     <div className="flex gap-2">
                       <Link href={`/dashboard/titles/${title.id}`}>
-                        <Button variant="outline" size="sm">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          aria-label={`Edit title ${title.name}`}
+                        >
                           Edit
                         </Button>
                       </Link>

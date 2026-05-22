@@ -1,5 +1,6 @@
 /**
  * Animated placeholder Noah cat using CSS/SVG and Framer Motion
+ * Memoized to prevent unnecessary re-renders
  */
 
 import React from "react";
@@ -33,10 +34,10 @@ const STATE_ANIMATIONS: Record<NoahState, any> = {
   },
 };
 
-const CatSVG: React.FC<{ className?: string; style?: React.CSSProperties }> = ({
-  className = "",
-  style,
-}) => (
+const CatSVGContent: React.FC<{
+  className?: string;
+  style?: React.CSSProperties;
+}> = ({ className = "", style }) => (
   <svg
     viewBox="0 0 100 100"
     xmlns="http://www.w3.org/2000/svg"
@@ -131,12 +132,15 @@ const CatSVG: React.FC<{ className?: string; style?: React.CSSProperties }> = ({
   </svg>
 );
 
+const CatSVG = React.memo(CatSVGContent);
+CatSVG.displayName = "CatSVG";
+
 interface NoahPlaceholderProps {
   state: NoahState;
   size?: number;
 }
 
-export const NoahPlaceholder: React.FC<NoahPlaceholderProps> = ({
+const NoahPlaceholderContent: React.FC<NoahPlaceholderProps> = ({
   state,
   size = 120,
 }) => {
@@ -153,3 +157,6 @@ export const NoahPlaceholder: React.FC<NoahPlaceholderProps> = ({
     </motion.div>
   );
 };
+
+export const NoahPlaceholder = React.memo(NoahPlaceholderContent);
+NoahPlaceholder.displayName = "NoahPlaceholder";

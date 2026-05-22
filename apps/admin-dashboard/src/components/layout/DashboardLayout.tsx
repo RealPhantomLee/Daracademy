@@ -3,6 +3,7 @@
 import React from "react";
 import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
+import { ErrorBoundary, SkipLink } from "@daracademy/ui";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { NoahWidget } from "@daracademy/noah-engine";
@@ -18,19 +19,24 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <div className="flex h-screen overflow-hidden">
-        {/* Sidebar */}
-        <Sidebar />
+      <SkipLink />
+      <ErrorBoundary>
+        <div className="flex h-screen overflow-hidden">
+          {/* Sidebar */}
+          <Sidebar />
 
-        {/* Main content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-auto">{children}</main>
+          {/* Main content */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <Header />
+            <main id="main-content" className="flex-1 overflow-auto">
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
 
-      {/* Noah Widget - Fixed bottom-right, z-50 */}
-      <NoahWidget enabled={true} />
+        {/* Noah Widget - Fixed bottom-right, z-50 */}
+        <NoahWidget enabled={true} />
+      </ErrorBoundary>
     </SessionProvider>
   );
 };

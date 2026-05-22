@@ -11,3 +11,5 @@ export type { AvatarProps } from "./components/Avatar";
 export { Avatar } from "./components/Avatar";
 export type { ModalProps } from "./components/Modal";
 export { Modal } from "./components/Modal";
+export { ErrorBoundary } from "./components/ErrorBoundary";
+export { SkipLink } from "./components/SkipLink";

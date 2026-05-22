@@ -91,7 +91,7 @@ export default function SchedulePage() {
             ))}
           </div>
 
-          <Button variant="primary" size="sm" onClick={() => {}}>
+          <Button variant="primary" size="sm" disabled>
             Schedule Session
           </Button>
         </div>
@@ -138,7 +138,7 @@ export default function SchedulePage() {
               variant="primary"
               size="sm"
               className="mt-4 mx-auto"
-              onClick={() => {}}
+              disabled
             >
               Schedule Your First Session
             </Button>

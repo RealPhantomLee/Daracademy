@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@daracademy/auth";
 import { prisma } from "@daracademy/database";
@@ -6,11 +7,33 @@ import { Card, Button } from "@daracademy/ui";
 import { AssignmentCard } from "@/components/widgets/AssignmentCard";
 import { SessionCard } from "@/components/widgets/SessionCard";
 
+const ErrorState = ({
+  message,
+  action,
+}: {
+  message: string;
+  action?: () => void;
+}) => (
+  <div className="p-8 space-y-8">
+    <section className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <h3 className="text-sm font-medium text-yellow-800 mb-2">{message}</h3>
+      {action && (
+        <button
+          onClick={action}
+          className="text-sm text-blue-600 hover:underline"
+        >
+          Try again
+        </button>
+      )}
+    </section>
+  </div>
+);
+
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return <div>Not authenticated</div>;
+    return <ErrorState message="Please sign in to continue" />;
   }
 
   // Fetch user
@@ -19,7 +42,7 @@ export default async function DashboardPage() {
   });
 
   if (!user) {
-    return <div>User not found</div>;
+    return <ErrorState message="User profile not found" />;
   }
 
   // Fetch upcoming sessions (next 7 days)
@@ -98,9 +121,11 @@ export default async function DashboardPage() {
       <section>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-navy">Upcoming Sessions</h2>
-          <Button variant="outline" size="sm" onClick={() => {}}>
-            <a href="/dashboard/schedule">View All</a>
-          </Button>
+          <Link href="/dashboard/schedule">
+            <Button variant="outline" size="sm">
+              View All
+            </Button>
+          </Link>
         </div>
 
         {sessions.length > 0 ? (
@@ -123,14 +148,11 @@ export default async function DashboardPage() {
             <p className="text-slate-blue/60">
               No upcoming sessions scheduled.
             </p>
-            <Button
-              variant="primary"
-              size="sm"
-              className="mt-4 mx-auto"
-              onClick={() => {}}
-            >
-              <a href="/dashboard/schedule">Schedule a Session</a>
-            </Button>
+            <Link href="/dashboard/schedule">
+              <Button variant="primary" size="sm" className="mt-4 mx-auto">
+                Schedule a Session
+              </Button>
+            </Link>
           </Card>
         )}
       </section>
@@ -139,9 +161,11 @@ export default async function DashboardPage() {
       <section>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-navy">Your Assignments</h2>
-          <Button variant="outline" size="sm" onClick={() => {}}>
-            <a href="/dashboard/assignments">View All</a>
-          </Button>
+          <Link href="/dashboard/assignments">
+            <Button variant="outline" size="sm">
+              View All
+            </Button>
+          </Link>
         </div>
 
         {assignments.length > 0 ? (
@@ -163,14 +187,11 @@ export default async function DashboardPage() {
             <p className="text-slate-blue/60">
               No active assignments at the moment.
             </p>
-            <Button
-              variant="primary"
-              size="sm"
-              className="mt-4 mx-auto"
-              onClick={() => {}}
-            >
-              <a href="/dashboard/assignments">Browse All</a>
-            </Button>
+            <Link href="/dashboard/assignments">
+              <Button variant="primary" size="sm" className="mt-4 mx-auto">
+                Browse All
+              </Button>
+            </Link>
           </Card>
         )}
       </section>
@@ -183,9 +204,11 @@ export default async function DashboardPage() {
             Have questions about your assignments or need to reschedule a
             session?
           </p>
-          <Button variant="primary" size="sm" onClick={() => {}}>
-            <a href="/dashboard/messages">Send a Message</a>
-          </Button>
+          <Link href="/dashboard/messages">
+            <Button variant="primary" size="sm">
+              Send a Message
+            </Button>
+          </Link>
         </Card>
 
         <Card>
@@ -193,9 +216,11 @@ export default async function DashboardPage() {
           <p className="text-slate-blue/70 mb-4 text-sm">
             Update your learning goals, availability, and preferences.
           </p>
-          <Button variant="primary" size="sm" onClick={() => {}}>
-            <a href="/dashboard/profile">Edit Profile</a>
-          </Button>
+          <Link href="/dashboard/profile">
+            <Button variant="primary" size="sm">
+              Edit Profile
+            </Button>
+          </Link>
         </Card>
       </section>
     </div>

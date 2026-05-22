@@ -10,18 +10,18 @@ export type NoahState =
   | "celebration"
   | "reading";
 
-export interface NoahEvent {
-  type:
-    | "SHOW_WELCOME"
-    | "SHOW_NOTIFICATION"
-    | "SHOW_HELPER"
-    | "SHOW_CELEBRATION"
-    | "START_READING"
-    | "DISMISS"
-    | "TIMEOUT";
-  message?: string;
-  duration?: number;
-}
+/**
+ * Discriminated union type for all Noah state machine events
+ * Each event type is fully typed with its specific properties
+ */
+export type NoahEvent =
+  | { type: "SHOW_WELCOME" }
+  | { type: "SHOW_NOTIFICATION"; message?: string; duration?: number }
+  | { type: "SHOW_HELPER"; message?: string }
+  | { type: "SHOW_CELEBRATION"; message?: string }
+  | { type: "START_READING"; message?: string }
+  | { type: "DISMISS" }
+  | { type: "TIMEOUT" };
 
 export interface NoahContextData {
   message: string;

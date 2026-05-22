@@ -5,15 +5,23 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./components/*": {
-      "import": "./src/components/*"
+      "import": "./dist/components/*",
+      "types": "./dist/components/*"
     }
   },
   "files": [
-    "src"
+    "dist"
   ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
   "dependencies": {
     "react": "^19.0.0",
     "clsx": "^2.1.0",

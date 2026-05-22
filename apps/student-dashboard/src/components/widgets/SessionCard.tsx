@@ -84,7 +84,8 @@ export const SessionCard: React.FC<SessionCardProps> = ({
         </span>
         <a
           href={`/dashboard/schedule/${id}`}
-          className="text-navy hover:text-slate-blue font-medium text-sm transition-colors"
+          className="text-navy hover:text-slate-blue font-medium text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+          aria-label={`View details for ${title} session on ${new Date(startTime).toLocaleDateString()}`}
         >
           Details →
         </a>

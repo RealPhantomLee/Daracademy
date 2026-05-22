@@ -112,25 +112,33 @@ export default function ProfilePage() {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-navy mb-2">
+                <label
+                  htmlFor="name-input"
+                  className="block text-sm font-medium text-navy mb-2"
+                >
                   Name
                 </label>
                 <input
+                  id="name-input"
                   type="text"
                   value={session?.user?.name || ""}
                   disabled
-                  className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 bg-slate-blue/5 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-navy mb-2">
+                <label
+                  htmlFor="email-input"
+                  className="block text-sm font-medium text-navy mb-2"
+                >
                   Email
                 </label>
                 <input
+                  id="email-input"
                   type="email"
                   value={session?.user?.email || ""}
                   disabled
-                  className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 bg-slate-blue/5 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 />
               </div>
             </div>
@@ -158,10 +166,14 @@ export default function ProfilePage() {
           <div className="space-y-6">
             {/* Grade Level */}
             <div>
-              <label className="block text-sm font-medium text-navy mb-2">
+              <label
+                htmlFor="grade-level-input"
+                className="block text-sm font-medium text-navy mb-2"
+              >
                 Grade Level
               </label>
               <input
+                id="grade-level-input"
                 type="number"
                 min="1"
                 max="12"
@@ -170,29 +182,33 @@ export default function ProfilePage() {
                   handleInputChange("gradeLevel", parseInt(e.target.value))
                 }
                 disabled={!isEditing}
-                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               />
             </div>
 
             {/* School */}
             <div>
-              <label className="block text-sm font-medium text-navy mb-2">
+              <label
+                htmlFor="school-input"
+                className="block text-sm font-medium text-navy mb-2"
+              >
                 School
               </label>
               <input
+                id="school-input"
                 type="text"
                 value={formData.school || ""}
                 onChange={(e) => handleInputChange("school", e.target.value)}
                 disabled={!isEditing}
-                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               />
             </div>
 
             {/* Subjects */}
-            <div>
-              <label className="block text-sm font-medium text-navy mb-3">
+            <fieldset>
+              <legend className="block text-sm font-medium text-navy mb-3">
                 Subjects You Study
-              </label>
+              </legend>
               <div className="grid grid-cols-2 gap-2">
                 {subjectOptions.map((subject) => (
                   <label
@@ -208,36 +224,44 @@ export default function ProfilePage() {
                       checked={formData.subjects.includes(subject)}
                       onChange={() => toggleSubject(subject)}
                       disabled={!isEditing}
-                      className="mr-2"
+                      className="mr-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                     />
                     {subject}
                   </label>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* Learning Goals */}
             <div>
-              <label className="block text-sm font-medium text-navy mb-2">
+              <label
+                htmlFor="learning-goals-input"
+                className="block text-sm font-medium text-navy mb-2"
+              >
                 Learning Goals
               </label>
               <textarea
+                id="learning-goals-input"
                 value={formData.learningGoals || ""}
                 onChange={(e) =>
                   handleInputChange("learningGoals", e.target.value)
                 }
                 disabled={!isEditing}
                 rows={4}
-                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               />
             </div>
 
             {/* Availability */}
             <div>
-              <label className="block text-sm font-medium text-navy mb-2">
+              <label
+                htmlFor="availability-input"
+                className="block text-sm font-medium text-navy mb-2"
+              >
                 Availability
               </label>
               <input
+                id="availability-input"
                 type="text"
                 placeholder="e.g., Weekday evenings and weekends"
                 value={formData.availability || ""}
@@ -245,23 +269,27 @@ export default function ProfilePage() {
                   handleInputChange("availability", e.target.value)
                 }
                 disabled={!isEditing}
-                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               />
             </div>
 
             {/* Preferred Learning */}
             <div>
-              <label className="block text-sm font-medium text-navy mb-2">
+              <label
+                htmlFor="preferred-learning-input"
+                className="block text-sm font-medium text-navy mb-2"
+              >
                 Preferred Learning Style
               </label>
               <textarea
+                id="preferred-learning-input"
                 value={formData.preferredLearning || ""}
                 onChange={(e) =>
                   handleInputChange("preferredLearning", e.target.value)
                 }
                 disabled={!isEditing}
                 rows={4}
-                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 rounded-lg border border-slate-blue/20 disabled:bg-slate-blue/5 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               />
             </div>
           </div>

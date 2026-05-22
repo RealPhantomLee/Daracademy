@@ -65,11 +65,13 @@ export const SessionTable: React.FC<SessionTableProps> = ({ sessions }) => {
             <button
               key={status}
               onClick={() => setFilter(status)}
-              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+              className={`px-3 py-1 rounded text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
                 filter === status
                   ? "bg-navy text-ivory"
                   : "bg-slate-blue/10 text-navy hover:bg-slate-blue/20"
               }`}
+              aria-label={`Filter by ${status === "all" ? "all statuses" : status.replace("_", " ")}`}
+              aria-pressed={filter === status}
             >
               {status === "all" ? "All" : status.replace("_", " ")}
             </button>
@@ -85,7 +87,9 @@ export const SessionTable: React.FC<SessionTableProps> = ({ sessions }) => {
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("title")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by session title"
+                  aria-pressed={sortField === "title"}
                 >
                   Title{" "}
                   {sortField === "title" && (sortOrder === "asc" ? "↑" : "↓")}
@@ -103,7 +107,9 @@ export const SessionTable: React.FC<SessionTableProps> = ({ sessions }) => {
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("startTime")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by start time"
+                  aria-pressed={sortField === "startTime"}
                 >
                   Start Time{" "}
                   {sortField === "startTime" &&
@@ -113,7 +119,9 @@ export const SessionTable: React.FC<SessionTableProps> = ({ sessions }) => {
               <th className="px-6 py-3 text-left font-semibold text-navy">
                 <button
                   onClick={() => toggleSort("status")}
-                  className="hover:text-slate-blue"
+                  className="hover:text-slate-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded px-2 py-1"
+                  aria-label="Sort by status"
+                  aria-pressed={sortField === "status"}
                 >
                   Status{" "}
                   {sortField === "status" && (sortOrder === "asc" ? "↑" : "↓")}
@@ -164,7 +172,11 @@ export const SessionTable: React.FC<SessionTableProps> = ({ sessions }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Link href={`/dashboard/sessions/${session.id}`}>
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        aria-label={`Edit session ${session.title}`}
+                      >
                         Edit
                       </Button>
                     </Link>

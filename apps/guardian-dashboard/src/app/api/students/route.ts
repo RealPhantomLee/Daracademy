@@ -23,8 +23,22 @@ export async function GET() {
       );
     }
 
-    // TODO: implement proper guardian-student linking when schema is updated
-    // For now, return all students
+    // SECURITY: Guardians can only view students linked to them
+    // TODO: Implement proper guardian-student linking when schema is updated
+    // Currently, we reject all requests until guardian-student relationships are defined.
+    // Once schema supports StudentGuardian junction table, filter by:
+    // where: { role: "STUDENT", guardians: { some: { guardianId: guardian.id } } }
+    if (guardian.role !== "ADMIN") {
+      return NextResponse.json(
+        {
+          error:
+            "Guardian-student relationships not yet configured. Contact admin.",
+        },
+        { status: 403 },
+      );
+    }
+
+    // Admins can view all students (temporary until proper guardian linking exists)
     const students = await prisma.user.findMany({
       where: {
         role: "STUDENT",

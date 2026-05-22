@@ -1,9 +1,21 @@
 /**
  * Noah state machine using XState v5
+ * Event typing is handled through discriminated union in types.ts
  */
 
 import { createMachine, assign } from "xstate";
-import type { NoahEvent, NoahContextData } from "./types";
+import type { NoahContextData } from "./types";
+
+/**
+ * Helper function to safely extract event properties with type narrowing
+ */
+function getEventProp<T extends Record<string, any>, K extends keyof T>(
+  event: T,
+  key: K,
+  defaultValue: any,
+): any {
+  return event[key] !== undefined ? event[key] : defaultValue;
+}
 
 export const noahMachine = createMachine(
   {
@@ -29,8 +41,8 @@ export const noahMachine = createMachine(
             target: "notification",
             actions: assign({
               message: ({ event }) =>
-                (event as any).message || "You have something new!",
-              displayTime: ({ event }) => (event as any).duration || 4000,
+                getEventProp(event, "message", "You have something new!"),
+              displayTime: ({ event }) => getEventProp(event, "duration", 4000),
               startTime: () => Date.now(),
             }),
           },
@@ -38,7 +50,7 @@ export const noahMachine = createMachine(
             target: "helper",
             actions: assign({
               message: ({ event }) =>
-                (event as any).message || "Need help? I'm here!",
+                getEventProp(event, "message", "Need help? I'm here!"),
               displayTime: () => 5000,
               startTime: () => Date.now(),
             }),
@@ -46,7 +58,8 @@ export const noahMachine = createMachine(
           SHOW_CELEBRATION: {
             target: "celebration",
             actions: assign({
-              message: ({ event }) => (event as any).message || "Amazing work!",
+              message: ({ event }) =>
+                getEventProp(event, "message", "Amazing work!"),
               displayTime: () => 3000,
               startTime: () => Date.now(),
             }),
@@ -55,7 +68,7 @@ export const noahMachine = createMachine(
             target: "reading",
             actions: assign({
               message: ({ event }) =>
-                (event as any).message || "Reading assignment...",
+                getEventProp(event, "message", "Reading assignment..."),
               displayTime: () => 60000,
               startTime: () => Date.now(),
             }),
@@ -72,8 +85,8 @@ export const noahMachine = createMachine(
             target: "notification",
             actions: assign({
               message: ({ event }) =>
-                (event as any).message || "You have something new!",
-              displayTime: ({ event }) => (event as any).duration || 4000,
+                getEventProp(event, "message", "You have something new!"),
+              displayTime: ({ event }) => getEventProp(event, "duration", 4000),
               startTime: () => Date.now(),
             }),
           },
@@ -89,7 +102,7 @@ export const noahMachine = createMachine(
             target: "helper",
             actions: assign({
               message: ({ event }) =>
-                (event as any).message || "Need help? I'm here!",
+                getEventProp(event, "message", "Need help? I'm here!"),
               displayTime: () => 5000,
               startTime: () => Date.now(),
             }),

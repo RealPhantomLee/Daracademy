@@ -21,9 +21,9 @@
     "eslint"
   ],
   "dependencies": {
-    "tailwindcss": "^3.4.0",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0"

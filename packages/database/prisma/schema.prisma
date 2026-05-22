@@ -59,6 +59,12 @@ enum TitleTier {
   PLATINUM
 }
 
+enum InquiryStatus {
+  PENDING
+  RESPONDED
+  CLOSED
+}
+
 // NextAuth tables
 model Account {
   id                 String  @id @default(cuid())
@@ -186,6 +192,7 @@ model TutoringSession {
   @@index([tutorId])
   @@index([studentId])
   @@index([startTime])
+  @@index([studentId, status, startTime])
 }
 
 model SessionFeedback {
@@ -206,6 +213,7 @@ model SessionFeedback {
   @@index([sessionId])
   @@index([givenById])
   @@index([givenToId])
+  @@index([rating])
 }
 
 model Assignment {
@@ -247,6 +255,7 @@ model Message {
   @@index([senderId])
   @@index([receiverId])
   @@index([createdAt])
+  @@index([isRead])
 }
 
 model Notification {
@@ -336,7 +345,7 @@ model Inquiry {
   email       String
   subject     String
   message     String    @db.Text
-  status      String    @default("PENDING")
+  status      InquiryStatus   @default(PENDING)
   response    String?   @db.Text
   respondedAt DateTime?
   createdAt   DateTime  @default(now())

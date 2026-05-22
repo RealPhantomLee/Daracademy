@@ -7,11 +7,33 @@ import { Card, Button } from "@daracademy/ui";
 import { StudentCard } from "@/components/widgets/StudentCard";
 import { SessionOverview } from "@/components/widgets/SessionOverview";
 
+const ErrorState = ({
+  message,
+  action,
+}: {
+  message: string;
+  action?: () => void;
+}) => (
+  <div className="p-8 space-y-8">
+    <section className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <h3 className="text-sm font-medium text-yellow-800 mb-2">{message}</h3>
+      {action && (
+        <button
+          onClick={action}
+          className="text-sm text-blue-600 hover:underline"
+        >
+          Try again
+        </button>
+      )}
+    </section>
+  </div>
+);
+
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return <div>Not authenticated</div>;
+    return <ErrorState message="Please sign in to continue" />;
   }
 
   // Fetch guardian user
@@ -20,7 +42,7 @@ export default async function DashboardPage() {
   });
 
   if (!guardian) {
-    return <div>Guardian not found</div>;
+    return <ErrorState message="Guardian profile not found" />;
   }
 
   // For now, fetch all students to show linked students

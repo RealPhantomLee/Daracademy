@@ -42,58 +42,65 @@ export const MessageThread: React.FC<MessageThreadProps> = ({
   }
 
   return (
-    <Card
-      className={`cursor-pointer transition-all hover:shadow-md ${
-        !isRead ? "border-navy border-2" : "border-slate-blue/20"
-      }`}
+    <a
+      href={`/dashboard/messages/${id}`}
+      className="block no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 rounded-lg"
+      aria-label={`Open conversation with ${senderName}. Last message: ${lastMessage}. ${unreadCount > 0 ? `${unreadCount} unread messages` : ""}`}
     >
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-3 flex-1">
-          {senderImage ? (
-            <Image
-              src={senderImage}
-              alt={senderName}
-              width={48}
-              height={48}
-              className="w-12 h-12 rounded-full"
-            />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-slate-blue/10 flex items-center justify-center">
-              <span className="text-navy font-semibold">
-                {senderName.charAt(0)}
-              </span>
-            </div>
-          )}
+      <Card
+        className={`transition-all hover:shadow-md ${
+          !isRead ? "border-navy border-2" : "border-slate-blue/20"
+        }`}
+      >
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3 flex-1">
+            {senderImage ? (
+              <Image
+                src={senderImage}
+                alt=""
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full"
+                aria-hidden="true"
+              />
+            ) : (
+              <div
+                className="w-12 h-12 rounded-full bg-slate-blue/10 flex items-center justify-center"
+                aria-hidden="true"
+              >
+                <span className="text-navy font-semibold">
+                  {senderName.charAt(0)}
+                </span>
+              </div>
+            )}
 
-          <div className="flex-1 min-w-0">
-            <h3
-              className={`font-semibold ${!isRead ? "text-navy" : "text-navy"}`}
-            >
-              {senderName}
-            </h3>
-            <p className="text-sm text-slate-blue/60 line-clamp-2">
-              {lastMessage}
+            <div className="flex-1 min-w-0">
+              <h3
+                className={`font-semibold ${!isRead ? "text-navy" : "text-navy"}`}
+              >
+                {senderName}
+              </h3>
+              <p className="text-sm text-slate-blue/60 line-clamp-2">
+                {lastMessage}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end gap-2 ml-4">
+            <p className="text-xs text-slate-blue/50 whitespace-nowrap">
+              {timeLabel}
             </p>
+            {unreadCount > 0 && (
+              <span
+                className="bg-navy text-ivory text-xs font-semibold px-2 py-1 rounded-full"
+                aria-label={`${unreadCount} unread messages`}
+              >
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
+            )}
           </div>
         </div>
-
-        <div className="flex flex-col items-end gap-2 ml-4">
-          <p className="text-xs text-slate-blue/50 whitespace-nowrap">
-            {timeLabel}
-          </p>
-          {unreadCount > 0 && (
-            <span className="bg-navy text-ivory text-xs font-semibold px-2 py-1 rounded-full">
-              {unreadCount > 9 ? "9+" : unreadCount}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <a
-        href={`/dashboard/messages/${id}`}
-        className="absolute inset-0"
-        aria-label={`Open conversation with ${senderName}`}
-      />
-    </Card>
+      </Card>
+    </a>
   );
 };

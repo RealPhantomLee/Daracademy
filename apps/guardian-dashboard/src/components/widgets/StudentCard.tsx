@@ -57,14 +57,15 @@ export const StudentCard: React.FC<StudentCardProps> = ({
       )}
 
       <div className="flex gap-2">
-        <Button
-          variant="primary"
-          size="sm"
+        <a
+          href={`/dashboard/students/${id}`}
           className="flex-1"
-          onClick={() => {}}
+          aria-label={`View details for ${name}`}
         >
-          <a href={`/dashboard/students/${id}`}>View Details</a>
-        </Button>
+          <Button variant="primary" size="sm" className="w-full">
+            View Details
+          </Button>
+        </a>
       </div>
     </Card>
   );
