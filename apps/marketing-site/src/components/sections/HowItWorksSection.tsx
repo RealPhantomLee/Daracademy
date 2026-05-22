@@ -147,28 +147,25 @@ export function HowItWorksSection() {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            {steps.map((step) => {
-              const IconComponent = step.icon;
-              return (
-                <motion.div
-                  key={step.number}
-                  variants={staggerItem}
-                  className="glass p-6 rounded-2xl flex gap-4"
-                >
-                  <div className="flex-shrink-0">
-                    <motion.div className="w-16 h-16 rounded-full bg-color-gold text-color-navy flex items-center justify-center font-bold text-xl">
-                      {step.number}
-                    </motion.div>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-serif text-2xl text-color-navy mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-color-slate-blue">{step.description}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {steps.map((step) => (
+              <motion.div
+                key={step.number}
+                variants={staggerItem}
+                className="glass p-6 rounded-2xl flex gap-4"
+              >
+                <div className="flex-shrink-0">
+                  <motion.div className="w-16 h-16 rounded-full bg-color-gold text-color-navy flex items-center justify-center font-bold text-xl">
+                    {step.number}
+                  </motion.div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-serif text-2xl text-color-navy mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-color-slate-blue">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>

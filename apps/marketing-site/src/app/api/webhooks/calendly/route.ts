@@ -9,11 +9,12 @@ async function verifySignature(
 ): Promise<boolean> {
   const secret = process.env.CALENDLY_WEBHOOK_SECRET;
 
+  // SECURITY: Reject unsigned webhooks if secret is not configured
   if (!secret) {
-    console.warn(
-      "[Calendly webhook] No CALENDLY_WEBHOOK_SECRET configured, skipping verification",
+    console.error(
+      "[Calendly webhook] CRITICAL: No CALENDLY_WEBHOOK_SECRET configured. Rejecting webhook.",
     );
-    return true;
+    return false;
   }
 
   try {
@@ -31,17 +32,22 @@ export async function POST(req: NextRequest) {
 
   console.log("[Calendly webhook] Received event");
 
-  // TODO 1: Verify signature
-  if (signature) {
-    const isValid = await verifySignature(signature, body);
-    if (!isValid) {
-      console.warn("[Calendly webhook] Invalid signature");
-      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-    }
-    console.log("[Calendly webhook] Signature verified");
-  } else {
-    console.warn("[Calendly webhook] No signature provided");
+  // SECURITY: Verify signature is present and valid
+  if (!signature) {
+    console.error(
+      "[Calendly webhook] CRITICAL: No signature provided. Rejecting webhook.",
+    );
+    return NextResponse.json({ error: "Missing signature" }, { status: 401 });
   }
+
+  const isValid = await verifySignature(signature, body);
+  if (!isValid) {
+    console.error(
+      "[Calendly webhook] CRITICAL: Invalid signature detected. Rejecting webhook.",
+    );
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+  }
+  console.log("[Calendly webhook] Signature verified");
 
   let event;
   try {
@@ -53,7 +59,7 @@ export async function POST(req: NextRequest) {
 
   // TODO 2: Parse event type
   if (event.event === "invitee.created") {
-    const { name, email, created_at } = event.payload.invitee;
+    const { name, email } = event.payload.invitee;
     const eventStartTime = event.payload.event_start_time;
     const eventEndTime = event.payload.event_end_time;
 
@@ -69,10 +75,25 @@ export async function POST(req: NextRequest) {
       });
 
       if (user && user.role === "STUDENT") {
+        const tutorId = process.env.DEFAULT_TUTOR_ID;
+
+        if (!tutorId) {
+          console.error(
+            "[Calendly webhook] DEFAULT_TUTOR_ID not configured, cannot create session",
+          );
+          return NextResponse.json(
+            {
+              error:
+                "DEFAULT_TUTOR_ID environment variable not configured. Contact administrator.",
+            },
+            { status: 500 },
+          );
+        }
+
         const session = await prisma.tutoringSession.create({
           data: {
             studentId: user.id,
-            tutorId: process.env.DEFAULT_TUTOR_ID || "", // Should be set to an actual tutor
+            tutorId,
             subject: "General",
             title: event.payload.event_name || "Tutoring Session",
             description: event.payload.event_name,

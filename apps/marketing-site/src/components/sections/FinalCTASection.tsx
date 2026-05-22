@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion, easeOut } from "framer-motion";
-import { ScrollReveal } from "@daracademy/animations";
 
 /**
  * Final CTA Section

@@ -6,7 +6,6 @@ export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
-  const [isClicking, setIsClicking] = useState(false);
 
   // Quill feather SVG inline
   const quillSVG = (

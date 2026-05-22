@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, easeOut, easeInOut } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import Image from "next/image";
 import { ScrollReveal } from "@daracademy/animations";
 
@@ -42,9 +42,9 @@ export const AboutSection = () => {
                 unlocked.
               </p>
               <p className="text-lg text-color-slate-blue leading-relaxed">
-                Her personalized approach combines rigorous academics with
-                genuine mentorship, creating an environment where students don't
-                just learn—they thrive.
+                {
+                  "Her personalized approach combines rigorous academics with genuine mentorship, creating an environment where students don't just learn—they thrive."
+                }
               </p>
             </motion.div>
             <motion.div
@@ -126,8 +126,9 @@ export const AboutSection = () => {
                   />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
-                  "Dara transformed my approach to learning. Her patience and
-                  expertise are unmatched."
+                  {
+                    '"Dara transformed my approach to learning. Her patience and expertise are unmatched."'
+                  }
                 </blockquote>
                 <p className="text-sm text-color-navy font-semibold mt-4">
                   Sarah, Grade 11
@@ -148,8 +149,9 @@ export const AboutSection = () => {
                   />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
-                  "I improved my SAT score by 200 points. The personalized
-                  strategy made all the difference."
+                  {
+                    '"I improved my SAT score by 200 points. The personalized strategy made all the difference."'
+                  }
                 </blockquote>
                 <p className="text-sm text-color-navy font-semibold mt-4">
                   Marcus, Grade 12
@@ -170,8 +172,9 @@ export const AboutSection = () => {
                   />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
-                  "Finally, tutoring that feels like mentorship. Dara genuinely
-                  cares about my success."
+                  {
+                    '"Finally, tutoring that feels like mentorship. Dara genuinely cares about my success."'
+                  }
                 </blockquote>
                 <p className="text-sm text-color-navy font-semibold mt-4">
                   Jessica, Grade 10
@@ -192,8 +195,9 @@ export const AboutSection = () => {
                   />
                 </div>
                 <blockquote className="text-lg italic text-color-slate-blue leading-relaxed">
-                  "Dara doesn't just teach—she empowers. I've gone from
-                  struggling to confident in math."
+                  {
+                    "\"Dara doesn't just teach—she empowers. I've gone from struggling to confident in math.\""
+                  }
                 </blockquote>
                 <p className="text-sm text-color-navy font-semibold mt-4">
                   Alex, Grade 9
