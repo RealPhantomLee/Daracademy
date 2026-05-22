@@ -29,6 +29,9 @@ importers:
       '@daracademy/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@daracademy/noah-engine':
+        specifier: workspace:*
+        version: link:../../packages/noah-engine
       next:
         specifier: 15.5.18
         version: 15.5.18(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -78,6 +81,9 @@ importers:
       '@daracademy/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@daracademy/noah-engine':
+        specifier: workspace:*
+        version: link:../../packages/noah-engine
       next:
         specifier: 15.5.18
         version: 15.5.18(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
