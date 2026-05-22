@@ -17,12 +17,16 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "posthog-js": "^1.130.0",
     "posthog-node": "^4.0.0",
     "react": "^19.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "typescript": "^5.4.0"
   },
