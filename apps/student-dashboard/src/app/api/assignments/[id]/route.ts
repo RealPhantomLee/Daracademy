@@ -104,14 +104,32 @@ export async function PATCH(
     const body = await request.json();
     const { status, submissionUrl, grade, feedback } = body;
 
+    // SECURITY: Only tutors and admins can update grades and feedback
+    const isGradingRequest = grade !== undefined || feedback;
+    if (isGradingRequest && user.role !== "TUTOR" && user.role !== "ADMIN") {
+      console.warn(
+        `[Assignment] SECURITY: Student ${user.id} attempted to update grade/feedback on assignment ${id}`,
+      );
+      return NextResponse.json(
+        { error: "Students cannot update grades or feedback" },
+        { status: 403 },
+      );
+    }
+
+    // Students can only update status and submission URL
+    const updateData: Record<string, unknown> = {};
+    if (status) updateData.status = status;
+    if (submissionUrl) updateData.submissionUrl = submissionUrl;
+
+    // Tutors and admins can update all fields
+    if (user.role === "TUTOR" || user.role === "ADMIN") {
+      if (grade !== undefined) updateData.grade = grade;
+      if (feedback) updateData.feedback = feedback;
+    }
+
     const updated = await prisma.assignment.update({
       where: { id: id },
-      data: {
-        ...(status && { status }),
-        ...(submissionUrl && { submissionUrl }),
-        ...(grade !== undefined && { grade }),
-        ...(feedback && { feedback }),
-      },
+      data: updateData,
     });
 
     return NextResponse.json(updated);

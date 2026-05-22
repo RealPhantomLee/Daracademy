@@ -1,6 +1,15 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@daracademy/auth";
 import { prisma } from "@daracademy/database";
+import {
+  assignmentCreateSchema,
+  successResponse,
+  errorResponse,
+  ErrorCodes,
+  HttpStatus,
+  validationErrorResponse,
+  handleApiError,
+} from "@daracademy/api-schema";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -8,7 +17,8 @@ export async function GET() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      const response = errorResponse("Unauthorized", ErrorCodes.UNAUTHORIZED);
+      return NextResponse.json(response, { status: HttpStatus.UNAUTHORIZED });
     }
 
     // Fetch user
@@ -17,7 +27,8 @@ export async function GET() {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      const response = errorResponse("User not found", ErrorCodes.NOT_FOUND);
+      return NextResponse.json(response, { status: HttpStatus.NOT_FOUND });
     }
 
     // Fetch all assignments for this student
@@ -28,13 +39,12 @@ export async function GET() {
       orderBy: { dueDate: "asc" },
     });
 
-    return NextResponse.json(assignments);
+    const response = successResponse(assignments);
+    return NextResponse.json(response, { status: HttpStatus.OK });
   } catch (error) {
     console.error("Failed to fetch assignments:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    const response = await handleApiError(error);
+    return NextResponse.json(response, { status: HttpStatus.INTERNAL_ERROR });
   }
 }
 
@@ -43,7 +53,8 @@ export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      const response = errorResponse("Unauthorized", ErrorCodes.UNAUTHORIZED);
+      return NextResponse.json(response, { status: HttpStatus.UNAUTHORIZED });
     }
 
     // Fetch user
@@ -52,46 +63,46 @@ export async function POST(request: Request) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    const body = await request.json();
-    const { title, subject, description, dueDate, attachmentUrl } = body;
-
-    if (!title || !subject || !dueDate) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 },
-      );
+      const response = errorResponse("User not found", ErrorCodes.NOT_FOUND);
+      return NextResponse.json(response, { status: HttpStatus.NOT_FOUND });
     }
 
     // Only allow tutors/admins to create assignments
     if (user.role !== "TUTOR" && user.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "Only tutors can create assignments" },
-        { status: 403 },
+      const response = errorResponse(
+        "Only tutors can create assignments",
+        ErrorCodes.FORBIDDEN,
       );
+      return NextResponse.json(response, { status: HttpStatus.FORBIDDEN });
+    }
+
+    const body = await request.json();
+
+    // Validate input
+    const validation = assignmentCreateSchema.safeParse(body);
+    if (!validation.success) {
+      const response = validationErrorResponse(validation.error);
+      return NextResponse.json(response, { status: HttpStatus.BAD_REQUEST });
     }
 
     const assignment = await prisma.assignment.create({
       data: {
-        title,
-        subject,
-        description: description || null,
-        dueDate: new Date(dueDate),
-        attachmentUrl: attachmentUrl || null,
-        assignedToId: body.assignedToId,
+        title: validation.data.title,
+        subject: validation.data.subject,
+        description: validation.data.description || null,
+        dueDate: new Date(validation.data.dueDate),
+        attachmentUrl: validation.data.attachmentUrl || null,
+        assignedToId: validation.data.assignedToId,
         createdById: user.id,
         status: "ASSIGNED",
       },
     });
 
-    return NextResponse.json(assignment, { status: 201 });
+    const response = successResponse(assignment);
+    return NextResponse.json(response, { status: HttpStatus.CREATED });
   } catch (error) {
     console.error("Failed to create assignment:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    const response = await handleApiError(error);
+    return NextResponse.json(response, { status: HttpStatus.INTERNAL_ERROR });
   }
 }

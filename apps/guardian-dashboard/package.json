@@ -15,7 +15,10 @@
     "@daracademy/auth": "workspace:*",
     "@daracademy/database": "workspace:*",
     "@daracademy/noah-engine": "workspace:*",
-    "next-auth": "^4.24.14"
+    "@daracademy/ui": "workspace:*",
+    "@daracademy/api-schema": "workspace:*",
+    "next-auth": "^4.24.14",
+    "stripe": "^14.0.0"
   },
   "devDependencies": {
     "typescript": "^5",

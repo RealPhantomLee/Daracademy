@@ -1,6 +1,15 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@daracademy/auth";
 import { prisma } from "@daracademy/database";
+import {
+  messageCreateSchema,
+  successResponse,
+  errorResponse,
+  ErrorCodes,
+  HttpStatus,
+  validationErrorResponse,
+  handleApiError,
+} from "@daracademy/api-schema";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -8,7 +17,8 @@ export async function GET() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      const response = errorResponse("Unauthorized", ErrorCodes.UNAUTHORIZED);
+      return NextResponse.json(response, { status: HttpStatus.UNAUTHORIZED });
     }
 
     // Fetch user
@@ -17,7 +27,8 @@ export async function GET() {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      const response = errorResponse("User not found", ErrorCodes.NOT_FOUND);
+      return NextResponse.json(response, { status: HttpStatus.NOT_FOUND });
     }
 
     // Fetch all messages where user is receiver (inbox)
@@ -64,13 +75,12 @@ export async function GET() {
     });
 
     const threadList = Object.values(threads);
-    return NextResponse.json(threadList);
+    const response = successResponse(threadList);
+    return NextResponse.json(response, { status: HttpStatus.OK });
   } catch (error) {
     console.error("Failed to fetch messages:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    const response = await handleApiError(error);
+    return NextResponse.json(response, { status: HttpStatus.INTERNAL_ERROR });
   }
 }
 
@@ -79,7 +89,8 @@ export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      const response = errorResponse("Unauthorized", ErrorCodes.UNAUTHORIZED);
+      return NextResponse.json(response, { status: HttpStatus.UNAUTHORIZED });
     }
 
     // Fetch user
@@ -88,24 +99,24 @@ export async function POST(request: Request) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      const response = errorResponse("User not found", ErrorCodes.NOT_FOUND);
+      return NextResponse.json(response, { status: HttpStatus.NOT_FOUND });
     }
 
     const body = await request.json();
-    const { receiverId, content } = body;
 
-    if (!receiverId || !content) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 },
-      );
+    // Validate input
+    const validation = messageCreateSchema.safeParse(body);
+    if (!validation.success) {
+      const response = validationErrorResponse(validation.error);
+      return NextResponse.json(response, { status: HttpStatus.BAD_REQUEST });
     }
 
     const message = await prisma.message.create({
       data: {
         senderId: user.id,
-        receiverId,
-        content,
+        receiverId: validation.data.receiverId,
+        content: validation.data.content,
         isRead: false,
       },
       include: {
@@ -114,12 +125,11 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json(message, { status: 201 });
+    const response = successResponse(message);
+    return NextResponse.json(response, { status: HttpStatus.CREATED });
   } catch (error) {
     console.error("Failed to create message:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    const response = await handleApiError(error);
+    return NextResponse.json(response, { status: HttpStatus.INTERNAL_ERROR });
   }
 }

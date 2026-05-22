@@ -18,6 +18,7 @@
     "@daracademy/ui": "workspace:*",
     "@daracademy/noah-engine": "workspace:*",
     "@daracademy/notifications": "workspace:*",
+    "@daracademy/api-schema": "workspace:*",
     "next-auth": "^4.24.14"
   },
   "devDependencies": {

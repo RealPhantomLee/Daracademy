@@ -1,0 +1,28 @@
+{
+  "name": "@daracademy/api-schema",
+  "version": "1.0.0",
+  "description": "Validation schemas and API response types for Daracademy",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "peerDependencies": {
+    "next": "^15.0.0"
+  },
+  "devDependencies": {
+    "next": "^15.1.2",
+    "typescript": "^5.4.0"
+  }
+}

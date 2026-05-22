@@ -3,12 +3,22 @@ import { authOptions } from "@daracademy/auth";
 import { prisma } from "@daracademy/database";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
+import {
+  userCreateSchema,
+  successResponse,
+  errorResponse,
+  ErrorCodes,
+  HttpStatus,
+  validationErrorResponse,
+  handleApiError,
+} from "@daracademy/api-schema";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
 
   if (!session || (session.user as { role?: string }).role !== "ADMIN") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    const response = errorResponse("Unauthorized", ErrorCodes.FORBIDDEN);
+    return NextResponse.json(response, { status: HttpStatus.FORBIDDEN });
   }
 
   try {
@@ -18,12 +28,12 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json(students);
-  } catch {
-    return NextResponse.json(
-      { error: "Failed to fetch students" },
-      { status: 500 },
-    );
+    const response = successResponse(students);
+    return NextResponse.json(response, { status: HttpStatus.OK });
+  } catch (error) {
+    console.error("Failed to fetch students:", error);
+    const response = await handleApiError(error);
+    return NextResponse.json(response, { status: HttpStatus.INTERNAL_ERROR });
   }
 }
 
@@ -31,29 +41,36 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session || (session.user as { role?: string }).role !== "ADMIN") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    const response = errorResponse("Unauthorized", ErrorCodes.FORBIDDEN);
+    return NextResponse.json(response, { status: HttpStatus.FORBIDDEN });
   }
 
   try {
     const body = await req.json();
-    const { email, password, name, gradeLevel, subjects } = body;
 
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: "Email and password are required" },
-        { status: 400 },
-      );
+    // Validate input (restrict to STUDENT role for this endpoint)
+    const validation = userCreateSchema.safeParse({
+      ...body,
+      role: "STUDENT",
+    });
+
+    if (!validation.success) {
+      const response = validationErrorResponse(validation.error);
+      return NextResponse.json(response, { status: HttpStatus.BAD_REQUEST });
     }
+
+    const { email, password, name, gradeLevel, subjects } = validation.data;
 
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 },
+      const response = errorResponse(
+        "User with this email already exists",
+        ErrorCodes.CONFLICT,
       );
+      return NextResponse.json(response, { status: HttpStatus.CONFLICT });
     }
 
     const hashedPassword = await bcryptjs.hash(password, 12);
@@ -74,11 +91,11 @@ export async function POST(req: NextRequest) {
       include: { studentProfile: true },
     });
 
-    return NextResponse.json(user, { status: 201 });
-  } catch {
-    return NextResponse.json(
-      { error: "Failed to create student" },
-      { status: 500 },
-    );
+    const response = successResponse(user);
+    return NextResponse.json(response, { status: HttpStatus.CREATED });
+  } catch (error) {
+    console.error("Failed to create student:", error);
+    const response = await handleApiError(error);
+    return NextResponse.json(response, { status: HttpStatus.INTERNAL_ERROR });
   }
 }
