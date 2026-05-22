@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, easeInOut } from "framer-motion";
+import { MessageCircle, Calendar, Zap, Trophy } from "lucide-react";
 import {
-  MessageCircle,
-  Calendar,
-  Zap,
-  Trophy,
-} from "lucide-react";
-import { ScrollReveal, staggerContainer, staggerItem } from "@daracademy/animations";
+  ScrollReveal,
+  staggerContainer,
+  staggerItem,
+} from "@daracademy/animations";
 
 /**
  * How It Works Section
@@ -54,7 +53,7 @@ export function HowItWorksSection() {
       opacity: 1,
       transition: {
         duration: 2,
-        ease: "easeInOut",
+        ease: easeInOut,
         delay: 0.3,
       },
     },

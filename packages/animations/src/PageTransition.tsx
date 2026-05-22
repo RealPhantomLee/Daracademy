@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 
-export interface PageTransitionProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageTransitionProps extends MotionProps {
   children: React.ReactNode;
   duration?: number;
 }

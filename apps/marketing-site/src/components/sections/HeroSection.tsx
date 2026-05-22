@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut, easeInOut } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { NoahWidget } from "@daracademy/noah-engine";
 
@@ -31,7 +31,7 @@ export function HeroSection() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   };
@@ -42,7 +42,7 @@ export function HeroSection() {
       transition: {
         duration: 2,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: easeInOut,
       },
     },
   };
@@ -55,7 +55,7 @@ export function HeroSection() {
       transition: {
         duration: 0.8,
         delay: 1.2,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   };

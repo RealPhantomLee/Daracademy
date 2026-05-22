@@ -73,12 +73,12 @@ export function LessonComplete() {
 import { noahResponses } from "@daracademy/noah-engine";
 
 // Available keys:
-noahResponses.welcome
-noahResponses.sessionReminder
-noahResponses.assignmentDue
-noahResponses.titleUnlocked
-noahResponses.celebration
-noahResponses.helper
+noahResponses.welcome;
+noahResponses.sessionReminder;
+noahResponses.assignmentDue;
+noahResponses.titleUnlocked;
+noahResponses.celebration;
+noahResponses.helper;
 ```
 
 ## 3D Model Integration

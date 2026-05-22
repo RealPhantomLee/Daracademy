@@ -19,8 +19,8 @@ export function ScheduleSection() {
               Ready to Start?
             </h2>
             <p className="text-lg text-color-slate-blue max-w-xl">
-              Schedule a free consultation with Dara to discuss your goals and create a
-              personalized learning plan.
+              Schedule a free consultation with Dara to discuss your goals and
+              create a personalized learning plan.
             </p>
           </div>
         </ScrollReveal>

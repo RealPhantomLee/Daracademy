@@ -3,7 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
-import { ScrollReveal, staggerContainer, staggerItem } from "@daracademy/animations";
+import {
+  ScrollReveal,
+  staggerContainer,
+  staggerItem,
+} from "@daracademy/animations";
 
 /**
  * Guardian Section
@@ -14,22 +18,26 @@ export function GuardianSection() {
     {
       id: "progress",
       title: "Transparent Progress",
-      description: "Real-time progress tracking and detailed reports every step of the way",
+      description:
+        "Real-time progress tracking and detailed reports every step of the way",
     },
     {
       id: "communication",
       title: "Direct Communication",
-      description: "Easy contact with Dara to discuss your student's growth and goals",
+      description:
+        "Easy contact with Dara to discuss your student's growth and goals",
     },
     {
       id: "scheduling",
       title: "Flexible Scheduling",
-      description: "Sessions fit your family's schedule with convenient booking options",
+      description:
+        "Sessions fit your family's schedule with convenient booking options",
     },
     {
       id: "goals",
       title: "Goal Tracking",
-      description: "Customizable learning milestones and measurable achievement metrics",
+      description:
+        "Customizable learning milestones and measurable achievement metrics",
     },
   ];
 
@@ -42,7 +50,8 @@ export function GuardianSection() {
               Parents Trust Us
             </h2>
             <p className="text-lg text-color-slate-blue max-w-2xl mx-auto">
-              We provide transparency, communication, and measurable results for every student
+              We provide transparency, communication, and measurable results for
+              every student
             </p>
           </div>
         </ScrollReveal>
@@ -62,8 +71,12 @@ export function GuardianSection() {
               className="glass p-6 rounded-2xl flex flex-col gap-4 hover:shadow-lg transition-all duration-300"
             >
               <CheckCircle className="w-8 h-8 text-color-gold flex-shrink-0" />
-              <h3 className="font-serif text-2xl text-color-navy">{point.title}</h3>
-              <p className="text-color-slate-blue leading-relaxed">{point.description}</p>
+              <h3 className="font-serif text-2xl text-color-navy">
+                {point.title}
+              </h3>
+              <p className="text-color-slate-blue leading-relaxed">
+                {point.description}
+              </p>
             </motion.div>
           ))}
         </motion.div>

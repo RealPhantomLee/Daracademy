@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut, easeInOut } from "framer-motion";
 import Image from "next/image";
 import { ScrollReveal } from "@daracademy/animations";
 
@@ -17,7 +17,7 @@ export const AboutSection = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   };

@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
             studentName: name,
             sessionTime: new Date(eventStartTime).toLocaleString(),
             sessionUrl: `${process.env.NEXT_PUBLIC_APP_URL || "https://daracademy.com"}/dashboard/sessions`,
-          }),
+          }) as React.ReactNode,
         });
 
         if (emailResult.success) {

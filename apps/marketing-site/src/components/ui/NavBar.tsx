@@ -11,8 +11,9 @@ export default function NavBar() {
   // Initialize theme from HTML data attribute
   useEffect(() => {
     const htmlElement = document.documentElement;
-    const currentTheme = (htmlElement.getAttribute("data-theme") ||
-      "light") as "light" | "night";
+    const currentTheme = (htmlElement.getAttribute("data-theme") || "light") as
+      | "light"
+      | "night";
     setTheme(currentTheme);
   }, []);
 

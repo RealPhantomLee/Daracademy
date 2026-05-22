@@ -28,7 +28,8 @@ export const noahMachine = createMachine(
           SHOW_NOTIFICATION: {
             target: "notification",
             actions: assign({
-              message: ({ event }) => (event as any).message || "You have something new!",
+              message: ({ event }) =>
+                (event as any).message || "You have something new!",
               displayTime: ({ event }) => (event as any).duration || 4000,
               startTime: () => Date.now(),
             }),
@@ -36,7 +37,8 @@ export const noahMachine = createMachine(
           SHOW_HELPER: {
             target: "helper",
             actions: assign({
-              message: ({ event }) => (event as any).message || "Need help? I'm here!",
+              message: ({ event }) =>
+                (event as any).message || "Need help? I'm here!",
               displayTime: () => 5000,
               startTime: () => Date.now(),
             }),
@@ -52,7 +54,8 @@ export const noahMachine = createMachine(
           START_READING: {
             target: "reading",
             actions: assign({
-              message: ({ event }) => (event as any).message || "Reading assignment...",
+              message: ({ event }) =>
+                (event as any).message || "Reading assignment...",
               displayTime: () => 60000,
               startTime: () => Date.now(),
             }),
@@ -68,7 +71,8 @@ export const noahMachine = createMachine(
           SHOW_NOTIFICATION: {
             target: "notification",
             actions: assign({
-              message: ({ event }) => (event as any).message || "You have something new!",
+              message: ({ event }) =>
+                (event as any).message || "You have something new!",
               displayTime: ({ event }) => (event as any).duration || 4000,
               startTime: () => Date.now(),
             }),
@@ -84,7 +88,8 @@ export const noahMachine = createMachine(
           SHOW_HELPER: {
             target: "helper",
             actions: assign({
-              message: ({ event }) => (event as any).message || "Need help? I'm here!",
+              message: ({ event }) =>
+                (event as any).message || "Need help? I'm here!",
               displayTime: () => 5000,
               startTime: () => Date.now(),
             }),
@@ -117,7 +122,7 @@ export const noahMachine = createMachine(
       },
     },
   },
-  {}
+  {},
 );
 
 export type NoahMachine = typeof noahMachine;

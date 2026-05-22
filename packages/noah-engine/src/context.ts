@@ -10,7 +10,7 @@ export interface NoahContextType {
 }
 
 export const noahContext = createContext<NoahContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function useNoahDispatch(): NoahContextType {

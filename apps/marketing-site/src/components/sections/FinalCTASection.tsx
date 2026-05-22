@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import { ScrollReveal } from "@daracademy/animations";
 
 /**
@@ -25,7 +25,7 @@ export function FinalCTASection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: easeOut },
     },
   };
 
@@ -71,8 +71,8 @@ export function FinalCTASection() {
             variants={itemVariants}
             className="text-lg md:text-xl text-color-ivory/90 max-w-2xl"
           >
-            Join students and families who have transformed their academic journey. Your first
-            consultation is free.
+            Join students and families who have transformed their academic
+            journey. Your first consultation is free.
           </motion.p>
 
           {/* CTA Button */}

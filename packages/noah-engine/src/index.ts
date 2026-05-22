@@ -13,7 +13,12 @@ export { noahContext } from "./context";
 export type { NoahContextType } from "./context";
 
 // Types
-export type { NoahState, NoahEvent, NoahContextData, NoahRendererProps } from "./types";
+export type {
+  NoahState,
+  NoahEvent,
+  NoahContextData,
+  NoahRendererProps,
+} from "./types";
 
 // Dialogue
 export { noahResponses } from "./dialogue/responses";

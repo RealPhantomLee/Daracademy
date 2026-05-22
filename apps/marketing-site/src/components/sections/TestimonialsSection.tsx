@@ -70,7 +70,8 @@ export function TestimonialsSection() {
               Student Success Stories
             </h2>
             <p className="text-lg text-color-slate-blue max-w-2xl mx-auto">
-              Hear from students and parents who have experienced real transformation
+              Hear from students and parents who have experienced real
+              transformation
             </p>
           </div>
         </ScrollReveal>
@@ -84,7 +85,7 @@ export function TestimonialsSection() {
             transition={{
               duration: 30,
               repeat: Infinity,
-              ease: "linear",
+              ease: [0, 0, 1, 1],
               repeatType: "loop",
             }}
             whileHover={{ animationPlayState: "paused" }}
@@ -116,8 +117,12 @@ export function TestimonialsSection() {
 
                 {/* Author */}
                 <div>
-                  <p className="font-semibold text-color-navy">{testimonial.name}</p>
-                  <p className="text-sm text-color-slate-blue">{testimonial.grade}</p>
+                  <p className="font-semibold text-color-navy">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-sm text-color-slate-blue">
+                    {testimonial.grade}
+                  </p>
                 </div>
               </motion.div>
             ))}

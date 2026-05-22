@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 import { fadeInUp } from "./variants";
 
-export interface ScrollRevealProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ScrollRevealProps extends MotionProps {
   children: React.ReactNode;
   variant?: "fadeInUp" | "fadeInDown" | "slideInLeft" | "slideInRight";
   delay?: number;
   threshold?: number;
+  className?: string;
 }
 
 export const ScrollReveal = React.forwardRef<HTMLDivElement, ScrollRevealProps>(

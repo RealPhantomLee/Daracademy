@@ -1,4 +1,5 @@
 import type { Variants } from "framer-motion";
+import { easeOut, easeInOut } from "framer-motion";
 
 export const fadeInUp: Variants = {
   hidden: {
@@ -10,7 +11,7 @@ export const fadeInUp: Variants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -25,7 +26,7 @@ export const fadeInDown: Variants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -40,7 +41,7 @@ export const slideInRight: Variants = {
     x: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -55,7 +56,7 @@ export const slideInLeft: Variants = {
     x: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -70,7 +71,7 @@ export const scaleIn: Variants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -85,7 +86,7 @@ export const rotateIn: Variants = {
     rotate: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -113,7 +114,7 @@ export const staggerItem: Variants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
@@ -127,7 +128,7 @@ export const pulse: Variants = {
     transition: {
       duration: 1.5,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: easeInOut,
     },
   },
 };
@@ -141,7 +142,7 @@ export const bounce: Variants = {
     transition: {
       duration: 0.8,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: easeInOut,
     },
   },
 };

@@ -7,7 +7,7 @@ import CustomCursor from "@/components/ui/CustomCursor";
 import GradientBackground from "@/components/background/GradientBackground";
 import NavBar from "@/components/ui/NavBar";
 import Footer from "@/components/ui/Footer";
-import NoahWidget from "@/components/integrations/CalendlyEmbed";
+import { NoahWidget } from "@daracademy/noah-engine";
 import PostHog from "@/components/integrations/PostHog";
 
 const cormorant = Cormorant_Garamond({

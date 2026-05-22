@@ -54,9 +54,7 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-serif font-bold text-color-ivory">
-              Follow Us
-            </h4>
+            <h4 className="font-serif font-bold text-color-ivory">Follow Us</h4>
             <div className="flex gap-4">
               <a
                 href="https://linkedin.com"
