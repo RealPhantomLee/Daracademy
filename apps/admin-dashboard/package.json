@@ -17,13 +17,15 @@
     "@daracademy/noah-engine": "workspace:*",
     "@daracademy/ui": "workspace:*",
     "@daracademy/api-schema": "workspace:*",
-    "next-auth": "^4.24.14"
+    "next-auth": "^4.24.14",
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/bcryptjs": "^2.4.6",
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
     "eslint": "^9",

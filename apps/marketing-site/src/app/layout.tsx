@@ -2,13 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import CustomCursor from "@/components/ui/CustomCursor";
-import GradientBackground from "@/components/background/GradientBackground";
-import NavBar from "@/components/ui/NavBar";
-import Footer from "@/components/ui/Footer";
-import { NoahWidget } from "@daracademy/noah-engine";
-import PostHog from "@/components/integrations/PostHog";
+import { ClientProviders } from "@/components/providers/ClientProviders";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
@@ -47,15 +41,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${cormorant.variable} ${inter.variable} antialiased`}>
-        <ThemeProvider>
-          <CustomCursor />
-          <GradientBackground />
-          <NavBar />
-          <main className="relative z-10">{children}</main>
-          <Footer />
-          <NoahWidget />
-          <PostHog />
-        </ThemeProvider>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

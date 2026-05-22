@@ -7,11 +7,22 @@ import { prisma } from "@daracademy/database";
 import { credentialsSchema } from "./validators/password";
 import type { NextAuthOptions } from "next-auth";
 
-// Validate NEXTAUTH_SECRET at startup
-const secret = process.env.NEXTAUTH_SECRET;
-if (!secret || secret.length < 32) {
+// Validate NEXTAUTH_SECRET at startup (strict in production)
+const secret =
+  process.env.NEXTAUTH_SECRET || "development-secret-key-change-in-production";
+if (process.env.NODE_ENV === "production" && (!secret || secret.length < 32)) {
   throw new Error(
-    "NEXTAUTH_SECRET must be at least 32 characters. Generate with: openssl rand -base64 32",
+    "NEXTAUTH_SECRET must be at least 32 characters in production. Generate with: openssl rand -base64 32",
+  );
+}
+
+// Warn in development if using default secret
+if (
+  process.env.NODE_ENV !== "production" &&
+  secret === "development-secret-key-change-in-production"
+) {
+  console.warn(
+    "⚠️  Using development default NEXTAUTH_SECRET. Set NEXTAUTH_SECRET in production.",
   );
 }
 

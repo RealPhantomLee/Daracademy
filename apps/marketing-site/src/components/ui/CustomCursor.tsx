@@ -71,7 +71,6 @@ export default function CustomCursor() {
     };
 
     const handleMouseDown = (e: MouseEvent) => {
-      setIsClicking(true);
       if (cursorRef.current) {
         cursorRef.current.classList.add("clicking");
       }
@@ -98,7 +97,6 @@ export default function CustomCursor() {
     };
 
     const handleMouseUp = () => {
-      setIsClicking(false);
       if (cursorRef.current) {
         cursorRef.current.classList.remove("clicking");
       }

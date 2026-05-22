@@ -5,7 +5,6 @@ import { Card } from "@daracademy/ui";
 import { AssignmentCard } from "@/components/widgets/AssignmentCard";
 import { AssignmentStatus } from "@daracademy/database";
 import { apiGet, getErrorMessage, isAuthError } from "@daracademy/api-schema";
-import type { ApiResponse } from "@daracademy/api-schema";
 
 interface Assignment {
   id: string;

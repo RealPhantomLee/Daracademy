@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Card } from "@daracademy/ui";
 import { MessageThread } from "@/components/widgets/MessageThread";
 import { apiGet, getErrorMessage, isAuthError } from "@daracademy/api-schema";
-import type { ApiResponse } from "@daracademy/api-schema";
 
 interface MessageThreadData {
   id: string;
