@@ -4,7 +4,24 @@ import Google from "next-auth/providers/google";
 import Discord from "next-auth/providers/discord";
 import bcryptjs from "bcryptjs";
 import { prisma } from "@daracademy/database";
+import { credentialsSchema } from "./validators/password";
 import type { NextAuthOptions } from "next-auth";
+
+// Validate NEXTAUTH_SECRET at startup
+const secret = process.env.NEXTAUTH_SECRET;
+if (!secret || secret.length < 32) {
+  throw new Error(
+    "NEXTAUTH_SECRET must be at least 32 characters. Generate with: openssl rand -base64 32",
+  );
+}
+
+// Warn if NEXTAUTH_URL is not HTTPS in production
+if (
+  process.env.NODE_ENV === "production" &&
+  !process.env.NEXTAUTH_URL?.startsWith("https://")
+) {
+  console.warn("⚠️  NEXTAUTH_URL must use https:// in production");
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -50,23 +67,25 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        // Validate input against security schema
+        const validation = credentialsSchema.safeParse(credentials);
+        if (!validation.success) {
           return null;
         }
+        const { email, password } = validation.data;
+
+        // Rate limiting check (placeholder for future Redis implementation)
+        // TODO: implement actual rate limiting with Redis
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email },
         });
 
-        if (!user || !user.password) {
+        if (!user?.password) {
           return null;
         }
 
-        const isPasswordValid = await bcryptjs.compare(
-          credentials.password,
-          user.password,
-        );
-
+        const isPasswordValid = await bcryptjs.compare(password, user.password);
         if (!isPasswordValid) {
           return null;
         }
@@ -103,7 +122,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 24 * 60 * 60, // 24 hours instead of 30 days
   },
   events: {
     async signIn({ user, isNewUser }: any) {
